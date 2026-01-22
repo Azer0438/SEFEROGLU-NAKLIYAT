@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, CheckCircle } from 'lucide-react'; 
+import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, CheckCircle, Code2 } from 'lucide-react'; // Code2 ikonunu ekledim (İmza için şık durur)
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -130,17 +129,35 @@ const Footer = () => {
 
         </div>
 
-        {/* ALT KISIM: Telif Hakkı ve Linkler */}
+        {/* ALT KISIM: Telif Hakkı, Linkler ve İMZA */}
         <div className="border-t border-gray-900 pt-8 mt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            
+            {/* SOL: Copyright */}
             <p className="text-gray-500 text-sm">
-              &copy; {new Date().getFullYear()} Seferoğlu Evden Eve Nakliyat. Tüm hakları saklıdır.
+              &copy; {new Date().getFullYear()} Seferoğlu Evden Eve Nakliyat.
             </p>
+            
+            {/* ORTA: Gizlilik Linkleri */}
             <div className="flex gap-4 md:gap-6 text-sm flex-wrap justify-center text-gray-500">
               <Link to="/gizlilik-politikasi" className="hover:text-[#FF6B35] transition-colors p-1">Gizlilik Politikası</Link>
               <Link to="/kullanim-kosullari" className="hover:text-[#FF6B35] transition-colors p-1">Kullanım Koşulları</Link>
               <Link to="/sitemap.xml" className="hover:text-[#FF6B35] transition-colors p-1">Site Haritası</Link>
             </div>
+
+            {/* SAĞ: BARBAROSSOFT İMZA */}
+            <div className="flex items-center gap-2 text-sm bg-gray-900/50 px-3 py-1 rounded-full border border-gray-800/50 hover:border-[#FF6B35]/30 transition-colors">
+               <Code2 size={16} className="text-gray-500" />
+               <span className="text-gray-500">Software:</span>
+               <a 
+                 href="#" 
+                 className="font-bold text-[#FF6B35] hover:text-white transition-all tracking-wide shadow-orange-500/20"
+                 title="Web Yazılım & Tasarım"
+               >
+                 BarbarosSoft
+               </a>
+            </div>
+
           </div>
         </div>
       </div>
