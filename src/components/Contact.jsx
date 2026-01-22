@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Send } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, Loader2 } from 'lucide-react'; // Loader2 eklendi
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
+import emailjs from '@emailjs/browser'; // EmailJS eklendi
 
 const Contact = () => {
   const { toast } = useToast();
+  const formRef = useRef(); // Form referansı
+  const [loading, setLoading] = useState(false); // Yükleniyor durumu
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -18,27 +22,52 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
+    // 1. Zorunlu Alan Kontrolü
     if (!formData.name || !formData.phone || !formData.email) {
       toast({
-        title: "Hata!",
-        description: "Lütfen zorunlu alanları doldurun.",
+        title: "Eksik Bilgi",
+        description: "Lütfen Ad Soyad, Telefon ve Email alanlarını doldurun.",
         variant: "destructive"
       });
       return;
     }
 
-    toast({
-      title: "Başarılı!",
-      description: "Mesajınız alındı. En kısa sürede size dönüş yapacağız.",
-    });
+    setLoading(true); // Yükleniyor başlat
 
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      date: '',
-      service: '',
-      message: ''
+    // 2. EmailJS Gönderme İşlemi
+    emailjs.sendForm(
+      'YOUR_SERVICE_ID',    // <-- BURAYA SERVICE ID
+      'YOUR_TEMPLATE_ID',   // <-- BURAYA TEMPLATE ID
+      formRef.current,
+      'YOUR_PUBLIC_KEY'     // <-- BURAYA PUBLIC KEY
+    )
+    .then((result) => {
+        setLoading(false);
+        // Başarılı Mesajı
+        toast({
+          title: "Harika! 🎉",
+          description: "Mesajınız bize ulaştı. En kısa sürede size dönüş yapacağız.",
+          className: "bg-green-600 text-white border-none"
+        });
+
+        // Formu Temizle
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          date: '',
+          service: '',
+          message: ''
+        });
+    }, (error) => {
+        setLoading(false);
+        console.error(error);
+        // Hata Mesajı
+        toast({
+          title: "Hata Oluştu 😔",
+          description: "Sunucu hatası. Lütfen WhatsApp üzerinden ulaşın.",
+          variant: "destructive"
+        });
     });
   };
 
@@ -68,19 +97,21 @@ const Contact = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+          {/* FORM ALANI */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <form onSubmit={handleSubmit} className="bg-gray-900 rounded-xl p-6 md:p-8 shadow-lg">
+            {/* ref={formRef} EKLENDİ */}
+            <form ref={formRef} onSubmit={handleSubmit} className="bg-gray-900 rounded-xl p-6 md:p-8 shadow-lg">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-4 md:mb-6">
                 <div>
                   <label className="block text-gray-300 mb-2 font-medium text-sm md:text-base">Ad Soyad *</label>
                   <input
                     type="text"
-                    name="name"
+                    name="name" // EmailJS Template'inde {{name}} olarak karşıla
                     value={formData.name}
                     onChange={handleChange}
                     className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 md:py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#FF6B35] transition-colors"
@@ -92,7 +123,7 @@ const Contact = () => {
                   <label className="block text-gray-300 mb-2 font-medium text-sm md:text-base">Telefon *</label>
                   <input
                     type="tel"
-                    name="phone"
+                    name="phone" // EmailJS Template'inde {{phone}} olarak karşıla
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 md:py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#FF6B35] transition-colors"
@@ -107,7 +138,7 @@ const Contact = () => {
                   <label className="block text-gray-300 mb-2 font-medium text-sm md:text-base">Email *</label>
                   <input
                     type="email"
-                    name="email"
+                    name="email" // EmailJS Template'inde {{email}} olarak karşıla
                     value={formData.email}
                     onChange={handleChange}
                     className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 md:py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#FF6B35] transition-colors"
@@ -146,7 +177,7 @@ const Contact = () => {
               <div className="mb-6 md:mb-8">
                 <label className="block text-gray-300 mb-2 font-medium text-sm md:text-base">Mesajınız</label>
                 <textarea
-                  name="message"
+                  name="message" // EmailJS Template'inde {{message}} olarak karşıla
                   value={formData.message}
                   onChange={handleChange}
                   rows="4"
@@ -157,14 +188,23 @@ const Contact = () => {
 
               <Button
                 type="submit"
-                className="w-full bg-[#FF6B35] hover:bg-[#E74C3C] text-white py-4 md:py-6 text-base md:text-lg h-auto"
+                disabled={loading} // Yüklenirken tıklamayı engelle
+                className="w-full bg-[#FF6B35] hover:bg-[#E74C3C] text-white py-4 md:py-6 text-base md:text-lg h-auto disabled:opacity-50"
               >
-                <Send className="w-5 h-5 mr-2" />
-                Gönder
+                {loading ? (
+                    <>
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" /> Gönderiliyor...
+                    </>
+                ) : (
+                    <>
+                        <Send className="w-5 h-5 mr-2" /> Gönder
+                    </>
+                )}
               </Button>
             </form>
           </motion.div>
 
+          {/* İLETİŞİM BİLGİLERİ (SAĞ TARAF - AYNI KALDI) */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
