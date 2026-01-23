@@ -147,16 +147,18 @@ const Footer = () => {
 
             {/* SAĞ: BARBAROSSOFT İMZA */}
             <div className="flex items-center gap-2 text-sm bg-gray-900/50 px-3 py-1 rounded-full border border-gray-800/50 hover:border-[#FF6B35]/30 transition-colors">
-               <Code2 size={16} className="text-gray-500" />
-               <span className="text-gray-500">Software:</span>
-               <a 
-                 href="#" 
-                 className="font-bold text-[#FF6B35] hover:text-white transition-all tracking-wide shadow-orange-500/20"
-                 title="Web Yazılım & Tasarım"
-               >
-                 BarbarosSoft
-               </a>
-            </div>
+   <Code2 size={16} className="text-gray-500" />
+   <span className="text-gray-500">Software:</span>
+   <a 
+     href="https://wa.me/905050810238?text=Merhaba,%20web%20sitesi%20hizmetiniz%20hakkında%20bilgi%20almak%20istiyorum." 
+     target="_blank"
+     rel="noopener noreferrer"
+     className="font-bold text-[#FF6B35] hover:text-white transition-all tracking-wide shadow-orange-500/20"
+     title="WhatsApp'tan Ulaşın"
+   >
+     BarbarosSoft
+   </a>
+</div>
 
           </div>
         </div>
