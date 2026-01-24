@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, CheckCircle, Code2 } from 'lucide-react'; // Code2 ikonunu ekledim (İmza için şık durur)
+import { Facebook, Instagram, Twitter, MapPin, Phone, Mail, Code2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -29,7 +29,7 @@ const Footer = () => {
         {/* ÜST KISIM: Logo ve Açıklama */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10 mb-12">
 
-          {/* 1. Sütun: Marka Bilgisi (Geniş alan) */}
+          {/* 1. Sütun: Marka Bilgisi */}
           <div className="lg:col-span-2 text-center md:text-left">
             <Link to="/">
               <img
@@ -46,7 +46,14 @@ const Footer = () => {
               <a href="#" className="w-10 h-10 bg-gray-900 border border-gray-800 rounded-full flex items-center justify-center hover:bg-[#FF6B35] hover:border-[#FF6B35] transition-all duration-300">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="w-10 h-10 bg-gray-900 border border-gray-800 rounded-full flex items-center justify-center hover:bg-[#FF6B35] hover:border-[#FF6B35] transition-all duration-300">
+              {/* INSTAGRAM LİNKİ GÜNCELLENDİ */}
+              <a 
+                href="https://www.instagram.com/kayseriseferoglunakliyat" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-10 h-10 bg-gray-900 border border-gray-800 rounded-full flex items-center justify-center hover:bg-[#FF6B35] hover:border-[#FF6B35] transition-all duration-300"
+                title="Instagram'da Bizi Takip Edin"
+              >
                 <Instagram className="w-5 h-5" />
               </a>
               <a href="#" className="w-10 h-10 bg-gray-900 border border-gray-800 rounded-full flex items-center justify-center hover:bg-[#FF6B35] hover:border-[#FF6B35] transition-all duration-300">
@@ -103,68 +110,4 @@ const Footer = () => {
             </h3>
             <ul className="space-y-4">
               <li className="flex flex-col items-center md:items-start gap-1">
-                <div className="flex items-center gap-2 text-[#FF6B35] font-semibold">
-                  <MapPin className="w-5 h-5" />
-                  Merkez Ofis
-                </div>
-                <span className="text-sm text-gray-400">Kocasinan Bulvarı No:12<br />Kayseri, Türkiye</span>
-              </li>
-              <li className="flex flex-col items-center md:items-start gap-1">
-                <div className="flex items-center gap-2 text-[#FF6B35] font-semibold">
-                  <Phone className="w-5 h-5" />
-                  Telefon
-                </div>
-                <a href="tel:05528819812" className="text-sm hover:text-white transition-colors p-1 block">0552 881 98 12</a>
-                <a href="tel:05416186304" className="text-sm hover:text-white transition-colors p-1 block">0541 618 63 04</a>
-              </li>
-              <li className="flex flex-col items-center md:items-start gap-1">
-                <div className="flex items-center gap-2 text-[#FF6B35] font-semibold">
-                  <Mail className="w-5 h-5" />
-                  E-Posta
-                </div>
-                <a href="mailto:info@seferoglunakliyat.com" className="text-sm hover:text-white transition-colors p-1 block">info@seferoglunakliyat.com</a>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-
-        {/* ALT KISIM: Telif Hakkı, Linkler ve İMZA */}
-        <div className="border-t border-gray-900 pt-8 mt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-            
-            {/* SOL: Copyright */}
-            <p className="text-gray-500 text-sm">
-              &copy; {new Date().getFullYear()} Seferoğlu Evden Eve Nakliyat.
-            </p>
-            
-            {/* ORTA: Gizlilik Linkleri */}
-            <div className="flex gap-4 md:gap-6 text-sm flex-wrap justify-center text-gray-500">
-              <Link to="/gizlilik-politikasi" className="hover:text-[#FF6B35] transition-colors p-1">Gizlilik Politikası</Link>
-              <Link to="/kullanim-kosullari" className="hover:text-[#FF6B35] transition-colors p-1">Kullanım Koşulları</Link>
-              <Link to="/sitemap.xml" className="hover:text-[#FF6B35] transition-colors p-1">Site Haritası</Link>
-            </div>
-
-            {/* SAĞ: BARBAROSSOFT İMZA */}
-            <div className="flex items-center gap-2 text-sm bg-gray-900/50 px-3 py-1 rounded-full border border-gray-800/50 hover:border-[#FF6B35]/30 transition-colors">
-   <Code2 size={16} className="text-gray-500" />
-   <span className="text-gray-500">Software:</span>
-   <a 
-     href="https://wa.me/905050810238?text=Merhaba,%20web%20sitesi%20hizmetiniz%20hakkında%20bilgi%20almak%20istiyorum." 
-     target="_blank"
-     rel="noopener noreferrer"
-     className="font-bold text-[#FF6B35] hover:text-white transition-all tracking-wide shadow-orange-500/20"
-     title="WhatsApp'tan Ulaşın"
-   >
-     BarbarosSoft
-   </a>
-</div>
-
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-};
-
-export default Footer;
+                <div
