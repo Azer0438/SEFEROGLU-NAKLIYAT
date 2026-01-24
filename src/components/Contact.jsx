@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Send, Loader2 } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, Loader2, Instagram } from 'lucide-react'; // Instagram ikonunu ekledim
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 // import emailjs from '@emailjs/browser'; // Şimdilik kapalı
@@ -35,7 +35,6 @@ const Contact = () => {
     setLoading(true);
 
     // --- DEMO MODU BAŞLANGIÇ ---
-    // Gerçek mail atmıyor ama atıyormuş gibi yapıyor :)
     setTimeout(() => {
         setLoading(false);
         toast({
@@ -53,7 +52,7 @@ const Contact = () => {
           service: '',
           message: ''
         });
-    }, 1500); // 1.5 saniye bekletir
+    }, 1500);
     // --- DEMO MODU BİTİŞ ---
   };
 
@@ -189,7 +188,7 @@ const Contact = () => {
             </form>
           </motion.div>
 
-          {/* İLETİŞİM BİLGİLERİ (SAĞ TARAF - AYNI) */}
+          {/* İLETİŞİM BİLGİLERİ (SAĞ TARAF) */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -201,6 +200,7 @@ const Contact = () => {
               <h3 className="text-xl md:text-2xl font-bold text-white mb-6">İletişim Bilgileri</h3>
               
               <div className="space-y-6">
+                {/* Telefon */}
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#FF6B35] to-[#FFA500] rounded-lg flex items-center justify-center flex-shrink-0">
                     <Phone className="w-5 h-5 md:w-6 md:h-6 text-white" />
@@ -212,6 +212,7 @@ const Contact = () => {
                   </div>
                 </div>
 
+                {/* Email */}
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#FF6B35] to-[#FFA500] rounded-lg flex items-center justify-center flex-shrink-0">
                     <Mail className="w-5 h-5 md:w-6 md:h-6 text-white" />
@@ -222,6 +223,7 @@ const Contact = () => {
                   </div>
                 </div>
 
+                {/* Adres */}
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#FF6B35] to-[#FFA500] rounded-lg flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-5 h-5 md:w-6 md:h-6 text-white" />
@@ -231,6 +233,26 @@ const Contact = () => {
                     <p className="text-gray-400 text-sm md:text-base">Kayseri, Türkiye</p>
                   </div>
                 </div>
+
+                {/* --- YENİ EKLENEN INSTAGRAM KISMI --- */}
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-[#FF6B35] to-[#FFA500] rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Instagram className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white mb-1 text-sm md:text-base">Instagram</h4>
+                    <a 
+                      href="https://www.instagram.com/kayseriseferoglunakliyat" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-gray-400 text-sm md:text-base hover:text-[#FF6B35] transition-colors"
+                    >
+                      @kayseriseferoglunakliyat
+                    </a>
+                  </div>
+                </div>
+                {/* --- INSTAGRAM BİTİŞ --- */}
+
               </div>
             </div>
 
